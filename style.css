@@ -1,27 +1,59 @@
-body {
-    /* Set line height to 1.5 times the font size
-         and use the OS’s UI font as the website font
-       */
-    font: 100%/1.5 system-ui;
-  }
-nav {
-    background-color: #333;
-    overflow: hidden;
+:root {
+    --accent-color: rgb(178, 79, 75); 
 }
-nav a {
-    float: left;
+body {
+    font: 100%/1.5 system-ui;
     display: block;
-    color: white;
+    max-width: 100ch;
+    margin-inline: max(1em, (100% - 100ch) / 2);
+}
+
+nav {
+    overflow: hidden;
+    display: flex;
+
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    border-bottom-color: oklch(80% 3% 200);
+    margin-bottom: 0.2em;
+
+    text-decoration: none;
+    align-items: center;
+}
+
+nav a.current {
+    border-bottom-style: solid;
+    border-bottom-width: 0.4em;
+    border-bottom-color: oklch(80% 3% 200);
+    padding-bottom: 0.1em;
+}
+
+nav a {
+    display: block;
+    color: inherit;
     text-align: center;
-    padding: 14px 16px;
+    flex: 1;
+    padding: 0.5em;
     text-decoration: none;
 }
+
 nav a:hover {
-    background-color: #ddd;
-    color: black;
-} 
-h1, h2, h3 {
+    background-color: oklch(from var(--accent-color) 95% 5% h);
+    border-bottom-color: var(--accent-color);
+    border-bottom-style: solid;
+    border-bottom-width: 0.4em;
+    padding-bottom: 0.1em;
+}
+
+h1, h2, h3, h4, h5, h6 {
     color: #333;
+    line-height: 1.1;
+}
+h2 {
+    font-size: 400%;
+    .cv{
+        font-size: 100%
+    }
 }
 .container {
     max-width: 800px;
@@ -36,7 +68,76 @@ h1, h2, h3 {
 .skills, .education, .experience {
     list-style-type: none;
     padding: 0;
+    display: grid;
+    gap: 15px;
 }
 .skills li, .education li, .experience li {
     margin-bottom: 10px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 10px;
+    align-items: start;
 }
+form {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 1em;
+    align-items: center;
+
+    label {
+        display: grid;
+        grid-template-columns: subgrid;
+        font-family: inherit;
+    }
+    input {
+        font-family: inherit;
+    }
+    textarea {
+        font-family: inherit;
+    }
+    button {
+        display: grid;
+        grid-template-columns: subgrid;
+        grid-column: 1 / -1;
+        font-family: inherit;
+        align-items: center;
+    }
+}
+.projects {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(15em, 1fr));
+    article {
+        grid-template-rows: subgrid;
+        grid-row: span 3;
+        gap: 1em;
+        h2 {
+            margin: 0;
+        }
+    }
+}
+
+
+.grid-section {
+    display: grid;
+    grid-template-rows: auto 1fr;
+    gap: 10px;
+    margin-bottom: 40px;
+  }
+
+.contact-info {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 8px;
+}
+
+.exp-grid {
+    display: grid;
+    gap: 5px;
+    grid-template-columns: subgrid;
+    grid-column: 1 / -1;
+  }
+  
+.skills {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  }
