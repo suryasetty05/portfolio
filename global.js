@@ -15,6 +15,7 @@ let nav = document.createElement('nav');
 document.body.prepend(nav);
 
 
+// Define the base path based on the environment
 const BASE_PATH = (location.hostname === "localhost" || location.hostname === "127.0.0.1")
   ? "/"                  // Local server
   : "/website/";         // GitHub Pages repo name
@@ -22,15 +23,27 @@ const BASE_PATH = (location.hostname === "localhost" || location.hostname === "1
 for (let p of pages) {
     let url = p.url;
     let title = p.title;
-    if (!url.startsWith('http')) {
+    
+    // Only prepend BASE_PATH for relative URLs that don't already include it
+    if (!url.startsWith('http') && !url.startsWith(BASE_PATH)) {
         url = BASE_PATH + url;
     }
+    
     let a = document.createElement('a');
     a.href = url;
     a.textContent = title;
-    if (a.host === location.host && a.pathname === location.pathname) {
+    
+    // Create full paths for comparison
+    const fullPath = new URL(a.href).pathname;
+    const currentPath = location.pathname;
+    
+    // Check if this is the current page
+    if (fullPath === currentPath || 
+        (currentPath.endsWith('/') && fullPath === currentPath + "index.html") ||
+        (fullPath.endsWith('/') && currentPath === fullPath + "index.html")) {
         a.classList.add('current');
-      }
+    }
+    
     nav.append(a);
 }
 
