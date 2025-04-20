@@ -1,7 +1,9 @@
 :root {
     --accent-color: rgb(178, 79, 75); 
+    --border-color: oklch(50% 10% 200 / 40%);
+    color-scheme: light;
 }
-body {
+body {  
     font: 100%/1.5 system-ui;
     display: block;
     max-width: 100ch;
@@ -14,7 +16,7 @@ nav {
 
     border-bottom-width: 1px;
     border-bottom-style: solid;
-    border-bottom-color: oklch(80% 3% 200);
+    border-bottom-color: var(--border-color);
     margin-bottom: 0.2em;
 
     text-decoration: none;
@@ -24,7 +26,7 @@ nav {
 nav a.current {
     border-bottom-style: solid;
     border-bottom-width: 0.4em;
-    border-bottom-color: oklch(80% 3% 200);
+    border-bottom-color: var(--border-color);
     padding-bottom: 0.1em;
 }
 
@@ -38,15 +40,19 @@ nav a {
 }
 
 nav a:hover {
-    background-color: oklch(from var(--accent-color) 95% 5% h);
+    background-color: color-mix(in oklch, var(--color-accent), canvas 85%);
     border-bottom-color: var(--accent-color);
     border-bottom-style: solid;
     border-bottom-width: 0.4em;
     padding-bottom: 0.1em;
 }
-
+.color-scheme {
+    position: absolute;
+    top: 0.8rem;
+    right: 1rem;
+    font-size: 80%;
+}
 h1, h2, h3, h4, h5, h6 {
-    color: #333;
     line-height: 1.1;
 }
 h2 {
