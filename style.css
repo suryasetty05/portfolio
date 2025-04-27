@@ -52,6 +52,13 @@ nav a:hover {
     right: 1rem;
     font-size: 80%;
 }
+.centered-image {
+    display: block; /* Make the image a block element */
+    margin: 0 auto; /* Center horizontally */
+    border-style: solid;
+    border-color: var(--border-color);
+    border-width: 10px;
+}
 h1, h2, h3, h4, h5, h6 {
     line-height: 1.1;
 }
@@ -146,4 +153,44 @@ form {
 .skills {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  }
+
+  #profile-stats {
+    margin: 1.5rem 0;
+    font-family: system-ui, -apple-system, sans-serif;
+  }
+  
+  #profile-stats dl {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    max-width: 900px;
+  }
+  
+  #profile-stats dt {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #24292e;
+    margin-bottom: 0.25rem;
+  }
+  
+  #profile-stats dd {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #0366d6;
+    margin: 0;
+  }
+  
+  /* For a card-like appearance */
+  #profile-stats dl div {
+    background-color: #f6f8fa;
+    border-radius: 8px;
+    padding: 1.25rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  
+  #profile-stats dl div:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
   }

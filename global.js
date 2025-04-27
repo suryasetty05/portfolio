@@ -106,4 +106,4 @@ export async function fetchGitHubData(username) {
   return fetchJSON(`https://api.github.com/users/${username}`);
 }
 
-const githubData = await fetchGitHubData('suryasetty05');
+export const githubData = await fetchGitHubData('suryasetty05');
