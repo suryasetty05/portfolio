@@ -71,7 +71,6 @@ h2 {
     max-width: 800px;
     margin: auto;
     display: flex;
-    flex: 1;
     gap: 1em;
     align-items:self-start;
 }
@@ -151,6 +150,7 @@ form {
     border-width: 3px;
     border-color: lightgrey;
     gap:2em;
+    flex: 1;
     li {
         display: flex;
         min-width: 3em;

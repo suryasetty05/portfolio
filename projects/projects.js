@@ -10,17 +10,21 @@ const numProjects = projects.length;
 const projectsTitle = document.querySelector('h1')
 projectsTitle.textContent = `${numProjects} Projects!`
 
+
+// find data
+
+let rolledData = d3.rollups(
+  projects,
+  (v) => v.length,
+  (d) => d.year,
+);
+let data = rolledData.map(([year, count]) => {
+    return { value: count, label: year };
+  });
+
 // create a pie chart
 let arcGenerator = d3.arc().innerRadius(0).outerRadius(50);
 
-let data = [
-    { value: 1, label: 'apples' },
-    { value: 2, label: 'oranges' },
-    { value: 3, label: 'mangos' },
-    { value: 4, label: 'pears' },
-    { value: 5, label: 'limes' },
-    { value: 5, label: 'cherries' },
-  ];
 let sliceGenerator = d3.pie().value((d) => d.value);
 let total = 0;
 
