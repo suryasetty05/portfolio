@@ -1,61 +1,73 @@
 [
     {
         "title": "Recipe Analysis",
+        "year": "2024",
         "image": "https://vis-society.github.io/labs/2/images/empty.svg",
         "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa quaerat debitis, est eaque officia eligendi libero ducimus porro illo quis. Repellat nisi officiis dolorem doloribus, at omnis neque inventore quos?"
     },
     {
         "title": "Distribution of Lab Scores",
+        "year": "2023",
         "image": "https://vis-society.github.io/labs/2/images/empty.svg",
         "description": "Impedit totam corrupti obcaecati quia architecto amet, eos odit porro eaque ullam dolores dolor magnam! Commodi excepturi pariatur alias exercitationem officia. Exercitationem voluptatum velit perspiciatis doloribus doloremque similique. Pariatur, officiis?"
     },
     {
         "title": "Interest Rate vs Credit Scores",
+        "year": "2023",
         "image": "https://vis-society.github.io/labs/2/images/empty.svg",
         "description": "Reiciendis animi vero asperiores dicta odio molestias dolorem doloribus cum voluptate iusto, fuga, aliquid nulla! Et officiis omnis ad laboriosam cupiditate hic, quas quidem sit laborum, libero, voluptate minus inventore?"
     },
     {
         "title": "Interest Rate Distribution on Personal Statement",
+        "year": "2024",
         "image": "https://vis-society.github.io/labs/2/images/empty.svg",
         "description": "Excepturi molestiae soluta esse! Mollitia, dicta! Quod tenetur qui libero minus dicta dolore ab repellendus doloremque tempora consequuntur facere, voluptates sit fugit. Mollitia eius maxime minus atque? In, eos quisquam?"
     },
     {
         "title": "Loan Trends and Frequency",
+        "year": "2022",
         "image": "https://vis-society.github.io/labs/2/images/empty.svg",
         "description": "Harum excepturi quaerat eligendi et ad vel. Consequatur ut quis aspernatur officia magnam tempore repellat. Fugit quasi magnam vel est, asperiores incidunt, ex voluptatem, omnis placeat sit tempora porro facilis."
     },
     {
         "title": "State Taxes vs Median Income",
+        "year": "2022",
         "image": "https://vis-society.github.io/labs/2/images/empty.svg",
         "description": "Debitis officia laudantium nulla unde voluptas provident error fuga, in hic ipsam inventore magni reprehenderit veritatis facilis obcaecati. Aspernatur alias exercitationem expedita porro tempora, ab ipsum eius maiores est minima?"
     },
     {
         "title": "How complicated are recipes?",
+        "year": "2024",
         "image": "https://vis-society.github.io/labs/2/images/empty.svg",
         "description": "Autem ratione aliquid, deserunt vero facere quos repudiandae quisquam ipsum, temporibus recusandae dolore porro nulla! Reprehenderit delectus architecto commodi dicta corrupti dolorum praesentium, consequatur unde, atque nam, ex magnam sequi!"
     },
     {
         "title": "Complexity of Baby Food by Store",
+        "year": "2025",
         "image": "https://vis-society.github.io/labs/2/images/empty.svg",
         "description": "Labore nihil esse magni ratione! Reprehenderit dolore molestiae quos placeat iure sequi aperiam vero animi deleniti eum quaerat dolorem suscipit dignissimos nihil, quibusdam provident enim, inventore, natus maxime error labore."
     },
     {
         "title": "Are recipes getting more complicated?",
+        "year": "2024",
         "image": "https://vis-society.github.io/labs/2/images/empty.svg",
         "description": "Facere perspiciatis velit molestias quod alias. Unde, facilis omnis saepe ut cumque aliquid assumenda eos exercitationem! Incidunt soluta totam ipsum sint in quas quae beatae aliquam rem accusamus. Mollitia, quasi!"
     },
     {
         "title": "Saturated vs Total Fat",
+        "year": "2025",
         "image": "https://vis-society.github.io/labs/2/images/empty.svg",
         "description": "Aliquam quaerat quasi sapiente vitae, quae accusamus iure voluptatum rem. Dignissimos aut omnis facilis vel, sint consequatur. Ea ipsam tenetur distinctio consectetur illum dolores, natus est non ut iste id."
     },
     {
         "title": "Average sugar levels of Ice Cream",
+        "year": "2025",
         "image": "https://vis-society.github.io/labs/2/images/empty.svg",
         "description": "Mollitia labore optio molestiae tempora ducimus quam, temporibus repellat eos totam, quaerat voluptate possimus consectetur animi distinctio tenetur voluptatem amet facilis consequatur nulla. Earum voluptas alias hic maiores, quo quod!"
     },
     {
         "title": "Does greek yogurt have more protein?",
+        "year": "2025",
         "image": "https://vis-society.github.io/labs/2/images/empty.svg",
         "description": "Sunt illum perferendis totam ut minus dolore esse facere accusamus illo sint! Commodi accusamus, sit tempora deleniti nostrum laboriosam pariatur saepe natus, molestiae a facilis. Dolorem eum rerum eveniet culpa?"
     }
