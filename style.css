@@ -137,9 +137,33 @@ form {
 #projects-pie-plot {
     max-width: 20em;
     margin-block: 2em;
-  
     overflow: visible;
+
+    &:has(path:hover) {
+        path:not(:hover) {
+          opacity: 0.5;
+        }
+      }
+    path {
+        transition: 300ms;
+        cursor: pointer;
+      }
   }
+
+.selected {
+    --color: oklch(60% 45% 0) !important;
+  
+    &:is(path) {
+      fill: var(--color);
+    }
+    &:is(.swatch) {
+      background-color: var(--color);
+    }
+  }
+path:not(.selected) {
+    opacity:0.6;
+}
+
 .legend {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(9em, 1fr));
