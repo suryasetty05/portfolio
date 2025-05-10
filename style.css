@@ -279,3 +279,32 @@ nav a:hover {
 .meta {
   font-weight: 100;
 }
+#stats {
+  margin: 1.5rem 0;
+  font-family: system-ui, -apple-system, sans-serif;
+}
+#stats dl {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  max-width: 900px;
+}
+#stats div {
+  background-color: #f6f8fa;
+    border-radius: 8px;
+    padding: 1.25rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+#stats dt {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #8fa2ad;
+  margin-bottom: 0.25rem;
+}
+#stats dd {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #336bb9;
+  margin: 0;
+}
