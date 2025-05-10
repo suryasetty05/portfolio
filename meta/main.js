@@ -121,14 +121,17 @@ function renderScatterPlot(data, commits) {
         .range([height, 0])
 
     const dots = svg.append('g').attr('class', 'dots');
+    const [minLines, maxLines] = d3.extent(commits, (d) => d.totalLines);
+    const rScale = d3.scaleSqrt().domain([minLines, maxLines]).range([2, 40]);
+    const sortedCommits = d3.sort(commits, (d) => -d.totalLines);
 
     dots
     .selectAll('circle')
-    .data(commits)
+    .data(sortedCommits)
     .join('circle')
     .attr('cx', (d) => xScale(d.datetime))
     .attr('cy', (d) => yScale(d.hourFrac))
-    .attr('r', 5)
+    .attr('r', (d) => rScale (d.totalLines))
     .attr('fill', 'steelblue')
     .on('mouseenter', (event, commit) => {
         renderTooltipContent(commit);
@@ -201,8 +204,8 @@ function updateTooltipVisibility(isVisible) {
 
 function updateTooltipPosition(event) {
     const tooltip = document.getElementById('commit-tooltip');
-    tooltip.style.left = `${event.clientX}px`;
-    tooltip.style.top = `${event.clientY}px`;
+    tooltip.style.left = `${event.clientX + 5}px`;
+    tooltip.style.top = `${event.clientY + 5}px`;
     }
 
 /* Main */
