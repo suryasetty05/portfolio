@@ -1,3 +1,4 @@
+/* Global Styles */
 :root {
     --accent-color: rgb(178, 79, 75); 
     --border-color: oklch(50% 10% 200 / 40%);
@@ -9,64 +10,14 @@ body {
     margin-inline: max(1em, (100% - 100ch) / 2);
 }
 
-nav {
-    overflow: hidden;
-    display: flex;
-
-    border-bottom-width: 1px;
-    border-bottom-style: solid;
-    border-bottom-color: var(--border-color);
-    margin-bottom: 0.2em;
-
-    text-decoration: none;
-    align-items: center;
-}
-
-nav a.current {
-    border-bottom-style: solid;
-    border-bottom-width: 0.4em;
-    border-bottom-color: var(--border-color);
-    padding-bottom: 0.1em;
-}
-
-nav a {
-    display: block;
-    color: inherit;
-    text-align: center;
-    flex: 1;
-    padding: 0.5em;
-    text-decoration: none;
-}
-
-nav a:hover {
-    background-color: color-mix(in oklch, var(--color-accent), canvas 85%);
-    border-bottom-color: var(--accent-color);
-    border-bottom-style: solid;
-    border-bottom-width: 0.4em;
-    padding-bottom: 0.1em;
-}
-.color-scheme {
-    position: absolute;
-    top: 0.8rem;
-    right: 1rem;
-    font-size: 80%;
-}
-.centered-image {
-    display: block; /* Make the image a block element */
-    margin: 0 auto; /* Center horizontally */
-    border-style: solid;
-    border-color: var(--border-color);
-    border-width: 10px;
-}
 h1, h2, h3, h4, h5, h6 {
     line-height: 1.1;
 }
+
 h2 {
-    font-size: 400%;
-    .cv{
-        font-size: 100%
-    }
+  font-size: 400%;
 }
+
 .container {
     max-width: 800px;
     margin: auto;
@@ -77,22 +28,8 @@ h2 {
 .section {
     margin-bottom: 20px;
 }
-.contact-info {
-    margin-bottom: 30px;
-}
-.skills, .education, .experience {
-    list-style-type: none;
-    padding: 0;
-    display: grid;
-    gap: 15px;
-}
-.skills li, .education li, .experience li {
-    margin-bottom: 10px;
-    display: grid;
-    grid-template-columns: 1fr auto;
-    gap: 10px;
-    align-items: start;
-}
+
+/* Contact Form */
 form {
     display: grid;
     grid-template-columns: auto 1fr;
@@ -202,6 +139,10 @@ path:not(.selected) {
 }
 
 /* CV and Contact */
+.cv{
+  font-size: 200%; /* Override for h2 elements within .cv */
+}
+
 .grid-section {
     display: grid;
     grid-template-rows: auto 1fr;
@@ -227,6 +168,22 @@ path:not(.selected) {
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   }
 
+.contact-info {
+    margin-bottom: 30px;
+}
+.skills, .education, .experience {
+    list-style-type: none;
+    padding: 0;
+    display: grid;
+    gap: 15px;
+}
+.skills li, .education li, .experience li {
+    margin-bottom: 10px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 10px;
+    align-items: start;
+}
 /* Github Connection on Front Page*/
   #profile-stats {
     margin: 1.5rem 0;
@@ -267,3 +224,58 @@ path:not(.selected) {
     transform: translateY(-3px);
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
   }
+
+/* Navigation */
+nav {
+  overflow: hidden;
+  display: flex;
+
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  border-bottom-color: var(--border-color);
+  margin-bottom: 0.2em;
+
+  text-decoration: none;
+  align-items: center;
+}
+
+nav a.current {
+  border-bottom-style: solid;
+  border-bottom-width: 0.4em;
+  border-bottom-color: var(--border-color);
+  padding-bottom: 0.1em;
+}
+
+nav a {
+  display: block;
+  color: inherit;
+  text-align: center;
+  flex: 1;
+  padding: 0.5em;
+  text-decoration: none;
+}
+
+nav a:hover {
+  background-color: color-mix(in oklch, var(--color-accent), canvas 85%);
+  border-bottom-color: var(--accent-color);
+  border-bottom-style: solid;
+  border-bottom-width: 0.4em;
+  padding-bottom: 0.1em;
+}
+.color-scheme {
+  position: absolute;
+  top: 0.8rem;
+  right: 1rem;
+  font-size: 80%;
+}
+.centered-image {
+  display: block; /* Make the image a block element */
+  margin: 0 auto; /* Center horizontally */
+  border-style: solid;
+  border-color: var(--border-color);
+  border-width: 10px;
+}
+/* Meta */
+.meta {
+  font-weight: 100;
+}
