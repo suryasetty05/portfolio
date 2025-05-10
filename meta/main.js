@@ -22,13 +22,13 @@ function processCommits(data) {
             let {author, date, time, timezone, datetime} = first;
             let ret = {
                 id: commit,
-                url: 'https://github.com/YOUR_REPO/commit/' + commit,
+                url: 'https://github.com/suryasetty05/portfolio/commit/' + commit,
                 author,
                 date,
                 time,
                 timezone,
                 datetime, 
-                hourfrac: datetime.getHours() + datetime.getMinutes() / 60,
+                hourFrac: datetime.getHours() + datetime.getMinutes() / 60,
                 totalLines: lines.length,
             };
 
@@ -102,7 +102,100 @@ function renderCommitInfo(data, commits) {
             .sort((a, b) => b[1].length - a[1].length)[0][0]);
 }
 
+function renderScatterPlot(data, commits) {
+    const width = 1000;
+    const height = 600;
+    const svg = d3
+        .select('#chart')
+        .append('svg')
+        .attr('viewBox', `0 0 ${width} ${height}`)
+        .style('overflow', 'visible');
+    const xScale = d3
+        .scaleTime()
+        .domain(d3.extent(commits, (d) => d.datetime))
+        .range([0, width])
+        .nice();
+    const yScale = d3
+        .scaleLinear()
+        .domain([0, 24])
+        .range([height, 0])
+
+    const dots = svg.append('g').attr('class', 'dots');
+
+    dots
+    .selectAll('circle')
+    .data(commits)
+    .join('circle')
+    .attr('cx', (d) => xScale(d.datetime))
+    .attr('cy', (d) => yScale(d.hourFrac))
+    .attr('r', 5)
+    .attr('fill', 'steelblue')
+    .on('mouseenter', (_, commit) => {
+        document.getElementById('commit-tooltip').style.opacity = 1;
+        renderTooltipContent(commit);
+    })
+    .on('mouseleave', () => {
+        document.getElementById('commit-tooltip').style.opacity = 0;
+    });
+
+    /* Add Axes */
+    const margin = { top: 10, right: 10, bottom: 30, left: 20 };
+    const usableArea = {
+        top: margin.top,
+        right: width - margin.right,
+        bottom: height - margin.bottom,
+        left: margin.left,
+        width: width - margin.left - margin.right,
+        height: height - margin.top - margin.bottom,
+    }
+    xScale.range([usableArea.left, usableArea.right]);
+    yScale.range([usableArea.bottom, usableArea.top]);
+    // Add gridlines BEFORE the axes
+    const gridlines = svg
+    .append('g')
+    .attr('class', 'gridlines')
+    .attr('transform', `translate(${usableArea.left}, 0)`);
+
+    // Create gridlines as an axis with no labels and full-width ticks
+    gridlines.call(d3.axisLeft(yScale).tickFormat('').tickSize(-usableArea.width));
+
+    const xAxis = d3.axisBottom(xScale);
+    const yAxis = d3.axisLeft(yScale)
+        .tickFormat((d) => String(d % 24).padStart(2, '0') + ':00');
+    svg
+        .append('g')
+        .attr('transform', `translate(0, ${usableArea.bottom})`)
+        .attr('class', 'x-axis')
+        .call(xAxis);
+    svg
+        .append('g')
+        .attr('transform', `translate(${usableArea.left}, 0)`)
+        .attr('class', 'y-axis')
+        .call(yAxis);
+}
+
+function renderTooltipContent(commit) {
+    const link = document.getElementById('commit-link');
+    const date = document.getElementById('commit-date');
+    const time = document.getElementById('commit-time');
+    const author = document.getElementById('commit-author');
+    const lines = document.getElementById('commit-lines');
+  
+    if (Object.keys(commit).length === 0) return;
+
+    link.href = commit.url;
+    link.textContent = commit.id;
+    date.textContent = commit.datetime?.toLocaleString('en', {
+      dateStyle: 'full',
+    });
+    time.textContent = commit.time;
+    author.textContent = commit.author;
+    lines.textContent = commit.lines.length;
+  }
+
 /* Main */
 let data = await loadData();
 let commits = processCommits(data);
 renderCommitInfo(data, commits);
+renderScatterPlot(data, commits);
+document.getElementById('#commit-tooltip').opacity = 0;

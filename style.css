@@ -279,6 +279,7 @@ nav a:hover {
 .meta {
   font-weight: 100;
 }
+/* Chart */
 #stats {
   margin: 1.5rem 0;
   font-family: system-ui, -apple-system, sans-serif;
@@ -307,4 +308,40 @@ nav a:hover {
   font-weight: 700;
   color: #336bb9;
   margin: 0;
+}
+.gridlines {
+  opacity: 0.3;
+}
+.gridlines .domain {
+  opacity: 0;
+}
+.y-axis path {
+  opacity: 0;
+  stroke-width: 0;
+}
+dl.info {
+  display: grid;
+  margin: 0;
+  grid-template-columns: repeat(2, 1fr);
+  opacity: 0;
+}
+dl.info dt{
+  color: #8fa2ad;
+}
+#commit-tooltip {
+  background-color: rgba(246, 250, 251, 0.885);
+  opacity: 0.8;
+}
+.tooltip {
+  position: fixed;
+  top: 1em;
+  left: 1em;
+}
+circle {
+  transition: 200ms;
+  transform-origin: center;
+  transform-box: fill-box;
+}
+circle:hover {
+  transform: scale(1.5);
 }
