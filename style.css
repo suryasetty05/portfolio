@@ -382,3 +382,44 @@ circle.selected {
   stroke-dasharray: 5 3;
   animation: marching-ants 2s linear infinite;
 }
+#language-breakdown {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 1em;
+  font-family: system-ui, -apple-system, sans-serif;
+  margin: 1em;
+}
+#language-breakdown div {
+  background-color: #f6f8fa;
+  max-width: 900px;
+  border-radius: 8px;
+  padding: 1.25rem;
+}
+#language-breakdown div dt {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+#language-breakdown div dd {
+  font-size: 2rem;
+  margin: 0;
+  align-items: center;
+  opacity: 0.8;
+  color: black;
+
+}
+#selection-count{
+  font-size: 15px;
+  font-weight: 700;
+  margin-left: 0.2em;
+  font-weight: 100;
+}
+.html {
+  color: #e34c26;
+}
+.js {
+  color: #d5c860;
+}
+.css {
+  color: #563d7c;
+}

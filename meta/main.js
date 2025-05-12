@@ -279,8 +279,10 @@ function renderLanguageBreakdown(selection) {
       const formatted = d3.format('.1~%')(proportion);
   
       container.innerHTML += `
-              <dt>${language}</dt>
+            <div class="language">
+              <dt class=${language}>${language.toUpperCase()}</dt>
               <dd>${count} lines (${formatted})</dd>
+              </div>
           `;
     }
   }
