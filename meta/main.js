@@ -46,6 +46,8 @@ export function processCommits(data) {
 }
 
 export function renderCommitInfo(data, commits) {
+    d3.select('#stats')
+        .html('');
 
     // create d1 element
     const d1 = d3
@@ -290,20 +292,6 @@ function renderLanguageBreakdown(selection) {
   }
 
 
-function onTimeSliderChange() {
-    // 1. Update commitProgress to slider value
-  commitProgress = +this.value;
-  
-  // 2. Update commitMaxTime using timeScale.invert()
-  commitMaxTime = timeScale.invert(commitProgress);
-  
-  // 3. Update the <time> element display
-  timeElement.textContent = commitMaxTime.toLocaleString();
-  filteredCommits = commits.filter((d) => d.datetime <= commitMaxTime);
-  updateScatterPlot(data, filteredCommits);
-  updateFileDisplay(filteredCommits)
-
-}
 
 function updateScatterPlot(data, commits) {
   const width = 1000;
@@ -399,25 +387,11 @@ function updateFileDisplay(filteredCommits){
 /* Main */
 let data = await loadData();
 let commits = processCommits(data);
+let filteredCommits = commits.sort((a, b) => a.datetime - b.datetime);
+
 renderCommitInfo(data, commits);
 renderScatterPlot(data, commits);
-let commitProgress = 100;
-let timeScale = d3
-  .scaleTime()
-  .domain([
-    d3.min(commits, (d) => d.datetime),
-    d3.max(commits, (d) => d.datetime),
-  ])
-  .range([0, 100]);
 
-let commitMaxTime = timeScale.invert(commitProgress);
-const timeElement = document.getElementById('commit-time-bar');
-timeElement.textContent = commitMaxTime.toLocaleString();
-
-const slider = document.getElementById('commit-progress');
-slider.value = commitProgress;
-
-let filteredCommits = commits.sort((a, b) => a.datetime - b.datetime);
 // after initializing filteredCommits
 updateFileDisplay(filteredCommits);
 
@@ -450,9 +424,11 @@ function onStepEnter(response) {
   let filteredCommits = commits.filter((d) => d.datetime <= timeVal)
     .sort((a, b) => a.datetime - b.datetime);
   updateScatterPlot(data, filteredCommits);
-  renderCommitInfo(data, filteredCommits);
-
-   
+  let filteredData = data.filter((d) => d.datetime <= timeVal)
+    .sort((a, b) => a.datetime - b.datetime);
+  renderCommitInfo(filteredData, filteredCommits);
+  console.log(filteredData);
+  console.log(data);
 }
 
 const scroller = scrollama();
@@ -462,5 +438,37 @@ scroller
     step: '#scrolly-1 .step',
   })
   .onStepEnter(onStepEnter);
+console.log(data);
 
-slider.addEventListener('input', onTimeSliderChange)
+
+// let commitProgress = 100;
+// let timeScale = d3
+//   .scaleTime()
+//   .domain([
+//     d3.min(commits, (d) => d.datetime),
+//     d3.max(commits, (d) => d.datetime),
+//   ])
+//   .range([0, 100]);
+
+// let commitMaxTime = timeScale.invert(commitProgress);
+// const timeElement = document.getElementById('commit-time-bar');
+// timeElement.textContent = commitMaxTime.toLocaleString();
+
+// const slider = document.getElementById('commit-progress');
+// slider.value = commitProgress;
+
+// slider.addEventListener('input', onTimeSliderChange)
+// function onTimeSliderChange() {
+//     // 1. Update commitProgress to slider value
+//   commitProgress = +this.value;
+  
+//   // 2. Update commitMaxTime using timeScale.invert()
+//   commitMaxTime = timeScale.invert(commitProgress);
+  
+//   // 3. Update the <time> element display
+//   timeElement.textContent = commitMaxTime.toLocaleString();
+//   filteredCommits = commits.filter((d) => d.datetime <= commitMaxTime);
+//   updateScatterPlot(data, filteredCommits);
+//   updateFileDisplay(filteredCommits)
+
+// }

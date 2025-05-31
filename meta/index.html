@@ -9,24 +9,27 @@
 </head>
 <body>
     <h1 class = "meta"> Meta </h1>
-    <h3 class = "meta"> This page includes stats about the code of this website. </h3>
-    <div id="stats"></div>
+    <h4 class = "meta"> This page includes stats about the code of this website. </h4>
     <script type="module" src="main.js"></script>
 
-    <h2 class = "meta">Commits by Time of Day</h2>
-    <label id="commit-label">
+    <!-- <label id="commit-label">
         Show commits until   
         <input id="commit-progress" type="range" min="0" max="100">
         <time id="commit-time-bar">Time</time>
-    </label>
-    <dl id="files">
+    </label> -->
+    <h3 class = "meta">Lines per File</h3>
 
-    </dl>
+    <dl id="files"></dl>
+    
+    <h3 class = "meta">Commits by Time of Day</h3>
+
     <p id ="selection-count">0 commits selected</p>
     <div id="scrolly-1">
-        <div id="scatter-story">Commit Diary!</div>
+        <div id="scatter-story">Commit Diary:</div>
       <div id="scatter-plot">
         <div id = "chart"></div>
+        <div id="stats"></div>
+
       </div>
     </div>
     <dl id="commit-tooltip" class="info tooltip" hidden>
