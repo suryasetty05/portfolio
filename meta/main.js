@@ -427,8 +427,7 @@ function onStepEnter(response) {
   let filteredData = data.filter((d) => d.datetime <= timeVal)
     .sort((a, b) => a.datetime - b.datetime);
   renderCommitInfo(filteredData, filteredCommits);
-  console.log(filteredData);
-  console.log(data);
+
 }
 
 const scroller = scrollama();
@@ -438,7 +437,6 @@ scroller
     step: '#scrolly-1 .step',
   })
   .onStepEnter(onStepEnter);
-console.log(data);
 
 
 // let commitProgress = 100;
