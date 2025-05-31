@@ -439,7 +439,7 @@ circle.selected {
   width: 75%;
 }
 
-#commit-time {
+#commit-time-bar {
   position: relative;
   bottom: 0;
   right: 0;
@@ -482,4 +482,26 @@ dd {
   gap: 0.15em;
   padding-top: 0.6em;
   margin-left: 0;
+}
+
+#scrolly-1 {
+  position: relative;
+  display: flex;
+  gap: 1rem;
+
+  > * {
+    flex: 1;
+  }
+}
+
+#scatter-story {
+  position: relative;
+}
+
+#scatter-plot {
+  position: sticky;
+  top: 0;
+  left: 0;
+  bottom: auto;
+  height: 50vh;
 }

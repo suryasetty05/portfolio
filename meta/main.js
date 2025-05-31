@@ -1,4 +1,5 @@
 import * as d3 from 'https://cdn.jsdelivr.net/npm/d3@7.9.0/+esm';
+import scrollama from 'https://cdn.jsdelivr.net/npm/scrollama@3.2.0/+esm';
 
 export async function loadData() {
     const data = await d3.csv('loc.csv', (row) => ({
@@ -410,16 +411,56 @@ let timeScale = d3
   .range([0, 100]);
 
 let commitMaxTime = timeScale.invert(commitProgress);
-const timeElement = document.getElementById('commit-time');
+const timeElement = document.getElementById('commit-time-bar');
 timeElement.textContent = commitMaxTime.toLocaleString();
 
 const slider = document.getElementById('commit-progress');
 slider.value = commitProgress;
 
-let filteredCommits = commits;
+let filteredCommits = commits.sort((a, b) => a.datetime - b.datetime);
 // after initializing filteredCommits
 updateFileDisplay(filteredCommits);
 
+d3.select('#scatter-story')
+  .selectAll('.step')
+  .data(commits)
+  .join('div')
+  .attr('class', 'step')
+  .html(
+    (d, i) => `
+		On ${d.datetime.toLocaleString('en', {
+      dateStyle: 'full',
+      timeStyle: 'short',
+    })},
+		I made <a href="${d.url}" target="_blank">${
+      i > 0 ? 'another glorious commit' : 'my first commit, and it was glorious'
+    }</a>.
+		I edited ${d.totalLines} lines across ${
+      d3.rollups(
+        d.lines,
+        (D) => D.length,
+        (d) => d.file,
+      ).length
+    } files.
+		I looked over all I had made, and I saw that it was very cool.
+	`,
+  );
+function onStepEnter(response) {
+  let timeVal = response.element.__data__.datetime;
+  let filteredCommits = commits.filter((d) => d.datetime <= timeVal)
+    .sort((a, b) => a.datetime - b.datetime);
+  updateScatterPlot(data, filteredCommits);
+  renderCommitInfo(data, filteredCommits);
 
+   
+}
+
+const scroller = scrollama();
+scroller
+  .setup({
+    container: '#scrolly-1',
+    step: '#scrolly-1 .step',
+  })
+  .onStepEnter(onStepEnter);
 
 slider.addEventListener('input', onTimeSliderChange)

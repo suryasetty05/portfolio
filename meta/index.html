@@ -17,20 +17,18 @@
     <label id="commit-label">
         Show commits until   
         <input id="commit-progress" type="range" min="0" max="100">
-        <time id="commit-time">Time</time>
+        <time id="commit-time-bar">Time</time>
     </label>
     <dl id="files">
-      <!-- we want the following structure for each file:
-      <div>
-        <dt>
-          <code>{file.name}</code>
-        </dt>
-        <dd>{file.lines.length} lines</dd>
-      </div>
-      -->
+
     </dl>
     <p id ="selection-count">0 commits selected</p>
-    <div id = "chart"></div>
+    <div id="scrolly-1">
+        <div id="scatter-story">Commit Diary!</div>
+      <div id="scatter-plot">
+        <div id = "chart"></div>
+      </div>
+    </div>
     <dl id="commit-tooltip" class="info tooltip" hidden>
         <dt>Commit</dt>
         <dd>
