@@ -295,12 +295,13 @@ function onTimeSliderChange() {
   
   // 2. Update commitMaxTime using timeScale.invert()
   commitMaxTime = timeScale.invert(commitProgress);
-  console.log(commitMaxTime);
   
   // 3. Update the <time> element display
   timeElement.textContent = commitMaxTime.toLocaleString();
   filteredCommits = commits.filter((d) => d.datetime <= commitMaxTime);
   updateScatterPlot(data, filteredCommits);
+  updateFileDisplay(filteredCommits)
+
 }
 
 function updateScatterPlot(data, commits) {
@@ -358,7 +359,40 @@ function updateScatterPlot(data, commits) {
     });
 }
 
+function updateFileDisplay(filteredCommits){
+    let lines = filteredCommits.flatMap((d) => d.lines);
+    let files = d3
+    .groups(lines, (d) => d.file)
+    .map(([name, lines]) => {
+        return { name, lines };
+    })
+    .sort((a, b) => b.lines.length - a.lines.length);
 
+    let filesContainer = d3
+    .select('#files')
+    .selectAll('div')
+    .data(files, (d) => d.name)
+    .join(
+        // This code only runs when the div is initially rendered
+        (enter) =>
+        enter.append('div').call((div) => {
+            div.append('dt').append('code');
+            div.append('dd');
+        }),
+    );
+    // This code updates the div info
+    let colors = d3.scaleOrdinal(d3.schemeTableau10);
+
+    filesContainer.select('dt > code').text((d) => d.name);
+    filesContainer
+        .select('dd')
+        .selectAll('div')
+        .data((d) => d.lines)
+        .join('div')
+        .attr('class', 'loc')
+        .attr('style', (d) => `--color: ${colors(d.type)}`);
+
+}
 
 
 /* Main */
@@ -383,5 +417,9 @@ const slider = document.getElementById('commit-progress');
 slider.value = commitProgress;
 
 let filteredCommits = commits;
+// after initializing filteredCommits
+updateFileDisplay(filteredCommits);
+
+
 
 slider.addEventListener('input', onTimeSliderChange)
