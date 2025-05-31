@@ -360,6 +360,10 @@ circle {
   transform-origin: center;
   transform-box: fill-box;
   fill-opacity: 0.5;
+  transition: all 200ms, r calc(var(--r) * 100ms);
+  @starting-style{
+    r:0;
+  }
 }
 circle:hover {
   transform: scale(1.5);
@@ -422,4 +426,22 @@ circle.selected {
 }
 .css {
   color: #563d7c;
+}
+#commit-label {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  height: 100px; /* or however tall you want */
+  flex: 1
+}
+
+#commit-progress {
+  width: 75%;
+}
+
+#commit-time {
+  position: relative;
+  bottom: 0;
+  right: 0;
+  margin: 5px;
 }

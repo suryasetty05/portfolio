@@ -1,6 +1,6 @@
 import * as d3 from 'https://cdn.jsdelivr.net/npm/d3@7.9.0/+esm';
 
-async function loadData() {
+export async function loadData() {
     const data = await d3.csv('loc.csv', (row) => ({
         ...row, 
         line: +row.line,
@@ -14,7 +14,7 @@ async function loadData() {
 
 /* Commit Information */
 
-function processCommits(data) {
+export function processCommits(data) {
     return d3
         .groups(data, (d) => d.commit)
         .map(([commit, lines]) => {
@@ -44,7 +44,7 @@ function processCommits(data) {
     
 }
 
-function renderCommitInfo(data, commits) {
+export function renderCommitInfo(data, commits) {
 
     // create d1 element
     const d1 = d3
@@ -106,6 +106,7 @@ let xScale;
 let yScale;
 
 function renderScatterPlot(data, commits) {
+    
     const width = 1000;
     const height = 600;
     const svg = d3
@@ -168,7 +169,7 @@ function renderScatterPlot(data, commits) {
 
     dots
     .selectAll('circle')
-    .data(sortedCommits)
+    .data(sortedCommits, (d) => d.id)
     .join('circle')
     .attr('cx', (d) => xScale(d.datetime))
     .attr('cy', (d) => yScale(d.hourFrac))
@@ -286,8 +287,101 @@ function renderLanguageBreakdown(selection) {
           `;
     }
   }
+
+
+function onTimeSliderChange() {
+    // 1. Update commitProgress to slider value
+  commitProgress = +this.value;
+  
+  // 2. Update commitMaxTime using timeScale.invert()
+  commitMaxTime = timeScale.invert(commitProgress);
+  console.log(commitMaxTime);
+  
+  // 3. Update the <time> element display
+  timeElement.textContent = commitMaxTime.toLocaleString();
+  filteredCommits = commits.filter((d) => d.datetime <= commitMaxTime);
+  updateScatterPlot(data, filteredCommits);
+}
+
+function updateScatterPlot(data, commits) {
+  const width = 1000;
+  const height = 600;
+  const margin = { top: 10, right: 10, bottom: 30, left: 20 };
+  const usableArea = {
+    top: margin.top,
+    right: width - margin.right,
+    bottom: height - margin.bottom,
+    left: margin.left,
+    width: width - margin.left - margin.right,
+    height: height - margin.top - margin.bottom,
+  };
+
+  const svg = d3.select('#chart').select('svg');
+
+  xScale = xScale.domain(d3.extent(commits, (d) => d.datetime));
+
+  const [minLines, maxLines] = d3.extent(commits, (d) => d.totalLines);
+  const rScale = d3.scaleSqrt().domain([minLines, maxLines]).range([2, 30]);
+
+  const xAxis = d3.axisBottom(xScale);
+
+  // CHANGE: we should clear out the existing xAxis and then create a new one.
+  const xAxisGroup = svg.select('g.x-axis').remove();
+  xAxisGroup.call(xAxis);
+  svg
+    .append('g')
+    .attr('transform', `translate(0, ${usableArea.bottom})`)
+    .attr('class', 'x-axis')
+    .call(xAxis);
+
+  const dots = svg.select('g.dots');
+
+  const sortedCommits = d3.sort(commits, (d) => -d.totalLines);
+  dots
+    .selectAll('circle')
+    .data(sortedCommits, (d) => d.id)
+    .join('circle')
+    .attr('cx', (d) => xScale(d.datetime))
+    .attr('cy', (d) => yScale(d.hourFrac))
+    .attr('r', (d) => rScale(d.totalLines))
+    .attr('fill', 'steelblue')
+    .style('fill-opacity', 0.7) // Add transparency for overlapping dots
+    .on('mouseenter', (event, commit) => {
+      d3.select(event.currentTarget).style('fill-opacity', 1); // Full opacity on hover
+      renderTooltipContent(commit);
+      updateTooltipVisibility(true);
+      updateTooltipPosition(event);
+    })
+    .on('mouseleave', (event) => {
+      d3.select(event.currentTarget).style('fill-opacity', 0.7);
+      updateTooltipVisibility(false);
+    });
+}
+
+
+
+
 /* Main */
 let data = await loadData();
 let commits = processCommits(data);
 renderCommitInfo(data, commits);
 renderScatterPlot(data, commits);
+let commitProgress = 100;
+let timeScale = d3
+  .scaleTime()
+  .domain([
+    d3.min(commits, (d) => d.datetime),
+    d3.max(commits, (d) => d.datetime),
+  ])
+  .range([0, 100]);
+
+let commitMaxTime = timeScale.invert(commitProgress);
+const timeElement = document.getElementById('commit-time');
+timeElement.textContent = commitMaxTime.toLocaleString();
+
+const slider = document.getElementById('commit-progress');
+slider.value = commitProgress;
+
+let filteredCommits = commits;
+
+slider.addEventListener('input', onTimeSliderChange)
